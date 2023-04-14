@@ -16,13 +16,13 @@ app.use(locationRouter);
 app.use(billRouter);
 app.use(statisticRouter);
 
-app.get("/test", (req, res) => {
-  res.send("Hello world");
-});
+// app.get("/test", (req, res) => {
+//   res.send("Hello world");
+// });
 
-app.get("/", (req, res) => {
-  res.json({ success: true, message: "Welcome to backend zone!" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ success: true, message: "Welcome to backend zone!" });
+// });
 
 app.listen(5000, () => {
   console.log("port is listening");
