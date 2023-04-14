@@ -11,15 +11,15 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // useCreateI
-});
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   // useCreateI
+// });
 
-mongoose.connection.on("connected", () => {
-  console.log("Mongoose is connected!!!!!!!!");
-});
+// mongoose.connection.on("connected", () => {
+//   console.log("Mongoose is connected!!!!!!!!");
+// });
 
 app.use(express.json());
 
