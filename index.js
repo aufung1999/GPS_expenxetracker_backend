@@ -27,6 +27,3 @@ app.get("/", (req, res) => {
 app.listen(5000, () => {
   console.log("port is listening");
 });
-
-// Export the Express API
-module.exports = app;
