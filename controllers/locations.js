@@ -77,6 +77,8 @@ exports.removeLocation = async (req, res) => {
 exports.getLocations = async (req, res) => {
   console.log("***getLocations:***", req.body);
 
+  console.log('req.body.email: ' + req.body.email)
+
   const { email, dateRecord, switchRecord } = req.body;
 
   const target_User = await User.findOne({ email: email });
