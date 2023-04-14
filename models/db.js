@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -7,6 +7,8 @@ mongoose
     // useCreateIndex: true,
   })
   .then(() => {
-    console.log('our db is connected');
+    console.log("our db is connected");
   })
-  .catch(err => console.log(err.message));
+  .catch((err) => console.log(err.message));
+
+module.exports = { mongoose };
