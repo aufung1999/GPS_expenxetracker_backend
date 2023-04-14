@@ -6,7 +6,7 @@ const userRouter = require("./routes/users");
 const locationRouter = require("./routes/locations");
 const billRouter = require("./routes/bills");
 const statisticRouter = require("./routes/statistics");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
