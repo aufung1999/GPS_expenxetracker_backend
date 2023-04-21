@@ -27,6 +27,7 @@ app.use(userRouter);
 app.use(locationRouter);
 app.use(billRouter);
 app.use(statisticRouter);
+// hi
 
 app.get("/test", (req, res) => {
   res.send("Hello world");
