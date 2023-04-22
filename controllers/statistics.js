@@ -64,13 +64,35 @@ exports.getStatistics = async (req, res) => {
 
       for (const key in target_monthly_Statistics) {
         if (target_monthly_Statistics[key].date.substr(0, 7) === currentMonth) {
-          dailyExpense.push(parseInt(target_monthly_Statistics[key].expense));
+          // daily_totalexpense OBJECT contains the "target_monthly_Statistics[key].date" ~ "2023-04-22"
+          if (
+            Object.keys(daily_totalexpense).includes(
+              target_monthly_Statistics[key].date
+            )
+          ) {
+            Object.assign(daily_totalexpense, {
+              [target_monthly_Statistics[key].date]:
+              // "parseInt" is to make sure they are not add together s string, and as numbers
+                parseInt(target_monthly_Statistics[key].expense) +
+                parseInt(
+                  daily_totalexpense[target_monthly_Statistics[key].date]
+                ),
+            });
+          }
+
+          if (
+            Object.keys(daily_totalexpense).includes(
+              target_monthly_Statistics[key].date
+            ) === false
+          ) {
+            // dailyExpense.push(parseInt(target_monthly_Statistics[key].expense));
+            Object.assign(daily_totalexpense, {
+              [target_monthly_Statistics[key].date]: parseInt(
+                target_monthly_Statistics[key].expense
+              ),
+            });
+          }
         }
-        Object.assign(daily_totalexpense, {
-          [target_monthly_Statistics[key].date]: dailyExpense.reduce(
-            (a, b) => a + b
-          ),
-        });
       }
       for (const key in target_Statistics) {
         if (target_Statistics[key].date.substr(0, 4) === currentYear) {
@@ -83,8 +105,13 @@ exports.getStatistics = async (req, res) => {
         });
       }
 
+      console.log(
+        "dailyExpenses: " + JSON.stringify(daily_totalexpense, null, 1)
+      );
+
       // console.log(
-      //   "dailyExpenses: " + JSON.stringify(daily_totalexpense, null, 1)
+      //   "target_monthly_Statistics: " +
+      //     JSON.stringify(target_monthly_Statistics, null, 1)
       // );
       // console.log("monthlyExpenses: " + JSON.stringify(totalexpenses, null, 1));
 
