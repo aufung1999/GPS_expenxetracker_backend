@@ -25,11 +25,10 @@ const locationSchema = new mongoose.Schema({
   expense: {
     type: String,
   },
-  date:{
+  date: {
     type: String,
     required: true,
   },
-
 });
 
 module.exports = mongoose.model("Location", locationSchema);

@@ -2,18 +2,25 @@ const Location = require("../models/location");
 const User = require("../models/user");
 
 exports.uploadLocation = async (req, res) => {
-  //   console.log(req.body.location);
+  // console.log(req.body.location);
   // res.json({ success: true });
   const { place_id, location, viewport, name, count } = req.body.location; // deconstruct from REQUEST
 
+  const req_date = req.body.date;
+
   const target_User = await User.findOne({ email: req.body.email });
+
+  console.log(target_User.email);
 
   const target_Location = await Location.findOne({
     user: target_User,
     place_id: place_id,
+    date: req_date,
   });
 
-  // if the locations NEVER exist in MONGODB
+  console.log(target_Location);
+
+  // if the location NEVER exist in MONGODB
   if (target_Location == null) {
     const save_location = await Location({
       user: target_User,
@@ -33,9 +40,11 @@ exports.uploadLocation = async (req, res) => {
     await save_location.save();
     res.json({ success: true, save_location });
   }
-  // if the locations exist in MONGODB
+
+  // if the locations exist in MONGODB, and same "DATE"
   else if (target_Location != null) {
     console.log("target_Location.count: " + target_Location.count);
+
     if (target_Location.count > count) {
       await Location.updateOne(
         { _id: target_Location },
@@ -77,7 +86,7 @@ exports.removeLocation = async (req, res) => {
 exports.getLocations = async (req, res) => {
   console.log("***getLocations:***", req.body);
 
-  console.log('req.body.email: ' + req.body.email)
+  console.log("req.body.email: " + req.body.email);
 
   const { email, dateRecord, switchRecord } = req.body;
 
