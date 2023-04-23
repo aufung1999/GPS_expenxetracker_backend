@@ -5,23 +5,17 @@ const Statistic = require("../models/statistic");
 
 //This is for "statistics" route
 exports.getStatistics = async (req, res) => {
-  const { email, get } = req.body;
-
+  const { email, get, req_date } = req.body;
+  console.log("req_date: " + req_date);
   if (get) {
     const target_User = await User.findOne({ email: email });
 
     // console.log("target_User: " + target_User._id);
 
-    const currentYear = new Date(Date.now())
-      .toISOString()
-      .split("T")[0]
-      .substr(0, 4);
-    // console.log("currentYear: " + currentYear);
+    const currentYear = req_date.substring(0, 4);
+    console.log("currentYear: " + currentYear);
 
-    const currentMonth = new Date(Date.now())
-      .toISOString()
-      .split("T")[0]
-      .substr(0, 7);
+    const currentMonth = req_date.substring(0, 7);
 
     const target_monthly_Statistics = await Statistic.find({
       $and: [
@@ -72,7 +66,7 @@ exports.getStatistics = async (req, res) => {
           ) {
             Object.assign(daily_totalexpense, {
               [target_monthly_Statistics[key].date]:
-              // "parseInt" is to make sure they are not add together s string, and as numbers
+                // "parseInt" is to make sure they are not add together s string, and as numbers
                 parseInt(target_monthly_Statistics[key].expense) +
                 parseInt(
                   daily_totalexpense[target_monthly_Statistics[key].date]
